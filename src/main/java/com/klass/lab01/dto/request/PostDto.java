@@ -5,6 +5,7 @@ import lombok.Data;
 @Data
 public class PostDto {
     long id;
+    long user_id;
     String title;
     String content;
     String author;

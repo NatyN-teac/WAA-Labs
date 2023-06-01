@@ -38,7 +38,7 @@ public class PostController {
     }
 
     @PutMapping(value = "/{id}")
-    public PostDto update(@PathVariable("id") long id, @RequestBody PostDto postDto) {
+    public int update(@PathVariable("id") long id, @RequestBody PostDto postDto) {
         return postService.update(id,postDto);
     }
     @DeleteMapping("/{id}")
