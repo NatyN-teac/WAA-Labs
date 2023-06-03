@@ -3,6 +3,7 @@ package com.klass.lab01.controllers;
 import com.klass.lab01.domain.Post;
 import com.klass.lab01.dto.request.PostDto;
 import com.klass.lab01.services.PostService;
+import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/v1/api/posts")
+@Transactional
 public class PostController {
     @Autowired
     private PostService postService;

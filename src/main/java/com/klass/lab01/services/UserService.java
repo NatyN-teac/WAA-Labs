@@ -9,6 +9,7 @@ import com.klass.lab01.dto.request.UserDto;
 import com.klass.lab01.dto.request.PostDto;
 import com.klass.lab01.repository.SearchPostDao;
 import com.klass.lab01.repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 @AllArgsConstructor
 public class UserService {
 
@@ -84,5 +86,9 @@ public class UserService {
            }
         }
         throw new RuntimeException();
+    }
+
+    public void throwException() {
+        throw new RuntimeException("Example exception");
     }
 }

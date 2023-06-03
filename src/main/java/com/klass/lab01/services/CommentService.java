@@ -5,6 +5,7 @@ import com.klass.lab01.dto.request.CommentDto;
 import com.klass.lab01.dto.helpers.ListMapper;
 import com.klass.lab01.repository.CommentRepository;
 import com.klass.lab01.repository.PostRepository;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
+@Transactional
 @AllArgsConstructor
 public class CommentService {
     @Autowired
