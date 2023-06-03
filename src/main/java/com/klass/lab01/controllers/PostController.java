@@ -30,6 +30,10 @@ public class PostController {
     public List<PostDto> findPostByAuthor(@RequestParam(name = "filter") String filterName) {
         return postService.filterPostByAuthor(filterName);
     }
+    @GetMapping("/search")
+    public List<PostDto> searchPostByTitle(@RequestParam(name = "title",required = false) String title) {
+        return postService.findPostByTitle(title);
+    }
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)

@@ -15,4 +15,5 @@ public interface PostService {
     void delete(long id);
 
     List<PostDto> filterPostByAuthor(String filterName);
+    List<PostDto> findPostByTitle(String title);
 }

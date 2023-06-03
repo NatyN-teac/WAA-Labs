@@ -9,6 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface PostRepository extends JpaRepository<Post,Long> {
 
@@ -18,5 +19,5 @@ public interface PostRepository extends JpaRepository<Post,Long> {
     @Query("UPDATE Post p set p =:post WHERE p.id = :id")
     int updatePost(long id,Post post);
 
-//    Post update(long id, Post mappedPost);
+
 }

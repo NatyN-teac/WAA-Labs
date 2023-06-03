@@ -16,7 +16,8 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Query("SELECT p FROM User u JOIN u.posts p WHERE u.id = :id")
     List<Post> findUserPostsById(@Param("id") long id);
 
-    @Query("SELECT u FROM User u JOIN u.posts p GROUP BY u.id HAVING COUNT(p) > 1")
-    List<User> findUsersByPostsCount();
+    @Query("SELECT u FROM User u JOIN u.posts p GROUP BY u.id HAVING COUNT(p) > :postNumber")
+    List<User> findUsersByPostsCount(@Param("postNumber") int postNumber);
+
 
 }

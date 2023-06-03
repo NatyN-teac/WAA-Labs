@@ -1,4 +1,4 @@
-package com.klass.lab01.dto;
+package com.klass.lab01.dto.request;
 
 import com.klass.lab01.domain.Post;
 import jakarta.persistence.*;

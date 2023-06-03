@@ -1,8 +1,11 @@
 package com.klass.lab01.services;
 
 import com.klass.lab01.domain.Post;
+import com.klass.lab01.dto.helpers.ListMapper;
 import com.klass.lab01.dto.request.PostDto;
+import com.klass.lab01.dto.request.SearchPostCriteriaRequest;
 import com.klass.lab01.repository.PostRepository;
+import com.klass.lab01.repository.SearchPostDao;
 import com.klass.lab01.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
@@ -20,7 +23,11 @@ public class PostServiceImpl implements PostService{
     @Autowired
     private UserRepository userRepository;
     @Autowired
+    private SearchPostDao searchPostDao;
+    @Autowired
     private ModelMapper mapper;
+    @Autowired
+    private ListMapper listMapper;
 
     public List<PostDto> findPosts(){
         return (List<PostDto>) postRepository.findAll()
@@ -62,5 +69,13 @@ public class PostServiceImpl implements PostService{
     @Override
     public List<PostDto> filterPostByAuthor(String filterName) {
         return postRepository.findPostByAuthor(filterName).stream().map(m -> mapper.map(m,PostDto.class)).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<PostDto> findPostByTitle(String title) {
+        SearchPostCriteriaRequest searchCriteria = new SearchPostCriteriaRequest(title);
+        var result = searchPostDao.findAllUserWithTitle(searchCriteria);
+        System.out.println("result is Here : " + result);
+        return result.stream().map((m) -> mapper.map(m,PostDto.class)).collect(Collectors.toList());
     }
 }

@@ -1,10 +1,9 @@
 package com.klass.lab01.controllers;
 
-import com.klass.lab01.domain.User;
-import com.klass.lab01.dto.UserDto;
-import com.klass.lab01.dto.helpers.ListMapper;
+import com.klass.lab01.dto.request.CommentDto;
+import com.klass.lab01.dto.request.SearchPostCriteriaRequest;
+import com.klass.lab01.dto.request.UserDto;
 import com.klass.lab01.dto.request.PostDto;
-import com.klass.lab01.repository.UserRepository;
 import com.klass.lab01.services.UserService;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -37,8 +36,21 @@ public class UserController {
         return userService.findPostByUserId(id);
     }
     @GetMapping("/filtered")
-    public List<UserDto> getUsersWithMultiplePosts() {
-        return userService.findUserWithMultiplePosts();
+    public List<UserDto> getUsersWithMultiplePosts(@RequestParam(name = "count") int count) {
+        return userService.findUserWithMultiplePosts(count);
+    }
+    @GetMapping("/posts/search")
+    public List<UserDto> getUsersByPostTitle(@RequestParam(name = "title") String title) {
+        SearchPostCriteriaRequest request = new SearchPostCriteriaRequest(title);
+        return userService.getUsersByPostTitle(request);
+    }
+    @GetMapping("/{id}/posts/{postId}/comments/{commentId}")
+    public CommentDto getCommentByUserPost(
+            @PathVariable("id") long id,
+            @PathVariable("postId") long postId,
+            @PathVariable("commentId") long commentId) {
+        return userService.getUserComment(id,postId,commentId);
+
     }
 
     @PostMapping()
