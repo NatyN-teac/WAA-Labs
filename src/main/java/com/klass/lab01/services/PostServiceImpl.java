@@ -10,6 +10,8 @@ import com.klass.lab01.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -46,13 +48,13 @@ public class PostServiceImpl implements PostService{
     }
     @Override
     public void save(PostDto postDto) {
-        var userInDb = userRepository.findById(postDto.getUser_id());
-        if(userInDb.isPresent()){
-            var post = mapper.map(postDto,Post.class);
-            var user = userInDb.get();
-            user.addPost(post);
-            userRepository.save(user);
-        }
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        var userInDb = userRepository.findByEmail(userDetails.getUsername());
+        var post = mapper.map(postDto,Post.class);
+        var user = userInDb.get();
+        user.addPost(post);
+        userRepository.save(user);
+
     }
 
     @Override

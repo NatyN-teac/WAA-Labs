@@ -6,9 +6,11 @@ import com.klass.lab01.dto.request.PostDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User,Long> {
@@ -19,5 +21,8 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Query("SELECT u FROM User u JOIN u.posts p GROUP BY u.id HAVING COUNT(p) > :postNumber")
     List<User> findUsersByPostsCount(@Param("postNumber") int postNumber);
 
+    @Query("SELECT u FROM User u WHERE u.email = :email")
+    Optional<User> findByEmail(@Param("email") String email);
 
+//    Optional<User> findByEmail(String email);
 }

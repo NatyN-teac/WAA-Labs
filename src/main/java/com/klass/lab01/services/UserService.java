@@ -37,6 +37,7 @@ public class UserService {
     }
 
     public List<PostDto> findPostByUserId(long id) {
+        System.out.println("are we posting here");
         return userRepository.findUserPostsById(id).stream().map((m) -> mapper.map(m,PostDto.class)).collect(Collectors.toList());
     }
     public  List<UserDto> findUserWithMultiplePosts(int postCount) {
@@ -49,6 +50,9 @@ public class UserService {
       }
       throw new RuntimeException();
 
+    }
+    public Optional<User> findUserByUsername(String email){
+       return userRepository.findByEmail(email);
     }
 
     public void save(UserDto userDto) {
